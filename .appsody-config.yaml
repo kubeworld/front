@@ -1,2 +1,2 @@
 project-name: init
-stack: kabanero/nodejs-express:0.2
+stack: docker.io/kabanero/nodejs-express:0.2

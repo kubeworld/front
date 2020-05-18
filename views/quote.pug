@@ -1,66 +1,112 @@
 html
   head
-    title CloudCo Insurance
+    title Quote Insurance
+  style.
+    .body { 
+    background-image: url("https://1.cms.s81c.com/sites/default/files/2020-04-01/nextChapter-image-ALT.jpg");
+    align-items: center;
+    }
+    .contents { 
+    background-color: white;
+    width: 50%;
+    height: auto;
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translate(-40%, -50%);
+    font-size: 14px;
+    padding: 15px 30px;
+    }
+    .hr { border: 1px solid gray; width: 100%; text-align:left; margin-left:0; }
+    .btn {
+    background-color: #4169E1;
+    padding: 15px 30px;
+    margin: 2px;
+    border: none;
+    color: white;;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    }
+    .btn1:hover{
+    background-color: rgb(59, 6, 90);
+    color: white;
+    }
+    .divbtn {
+    text-align: center;
+    align-items: center;
+    }
+    .result {
+    color: white;
+    background-color: green;
+    text-align: center;
+    margin: 2px;
+    font-size: 16px;
+    }
 
-  body
-    h1 Get a Free Quote
-    br
-    p Complete this form to obtain a quote for $200,000 of life insurance coverage.
-
+  body.body
+  div.contents
+    h1 보험료 간편 조회 서비스 
+    p 이 양식을 작성하여 2억원의 생명 보험에 대한 견적을 받아 보세요.
+    hr.hr
     if errors
       p(style="color:red") #{errors[0].msg}
 
     form(action = "/quote", method = "POST")
       div
-        label(for="age") Age:
+        label(for="age") 나이를 입력해 주세요 : 
         input(name="age" type="number" value=age)
       br
       div
-        label(for="weight") Weight:
+        label(for="weight") 몸무게를 입력해 주세요 : 
         input(name="weight" type="number" value=weight)
-        label(for="weight") pounds
+        label(for="weight") kg
       br
       div
-        label(for="feet") Height:
+        label(for="feet") 키를 입력해 주세요 : 
         input(name="feet" type="number" value=feet)
-        label(for="feet") feet
+        label(for="feet") 피트
         input(name="inches" type="number" value=inches)
-        label(for="inches") inches
+        label(for="inches") 인치
       br
-      p Gender:
+      p 성별을 선택해 주세요 : 
       div
         input(id="male" name="gender" type="radio" value="male" checked=(gender === 'male'))
-        label(for="male") Male
+        label(for="male") 남자
         input(id="female" name="gender" type="radio" value="female" checked=(gender === 'female'))
-        label(for="female") Female
+        label(for="female") 여자
       br
-      p Are you a smoker?
+      p 담배를 피우시나요 ?
       div
         input(id="currentsmoker" name="smoker" type="radio" value="current" checked=(smoker === 'current'))
-        label(for="currentsmoker") Yes
+        label(for="currentsmoker") 네
       div
         input(id="formersmoker" name="smoker" type="radio" value="former" checked=(smoker === 'former'))
-        label(for="formersmoker") Not smoking now but did smoke in the past
+        label(for="formersmoker") 지금은 담배를 피우지 않지만 과거에 담배를 피웠다.
       div
         input(id="neversmoker" name="smoker" type="radio" value="never" checked=(smoker === 'never'))
-        label(for="neversmoker") Never smoked
+        label(for="neversmoker") 담배를 피운적이 없다.
       br
-      p Have you been diagnosed with any of the following conditions?
+      p 다음과 같은 질환을 진단 받으신적이 있으신가요?
       div
         input(id="cancer" name="cancer" type="checkbox" value="true" checked=(cancer === 'true'))
-        label(for="cancer") Cancer
+        label(for="cancer") 암(Cancer)
       div
         input(id="cvd" name="cvd" type="checkbox" value="true" checked=(cvd === 'true'))
-        label(for="cvd") Cardiovascular disease 
-      br
-      br
-      button(type="submit") Request quote
+        label(for="cvd") 심혈관 질환(Cardiovascular disease) 
+      hr.hr
+      div.divbtn
+        button.btn.btn1(type="submit") 보험료 산출하기
 
-    div
-    if quotedAmount
-      if quotedAmount < 0
-        | We are unable to provide a quote at this time.
-      else
-        | Your quote is $#{quotedAmount} per month
-        if basis
-          |  (determined using #{basis})
+    div.result
+      if quotedAmount
+        if quotedAmount < 0
+          | 지금은 견적을 제공할 수 없습니다.
+        else
+          | 귀하는 한달에 $#{quotedAmount} 입니다.
+          if basis
+            |  (determined using #{basis})
